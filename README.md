@@ -1,6 +1,6 @@
 # ownCloud Docker Image
 
-This a highly
+Deploy ownCloud easily.
 
 ## Setup
 
