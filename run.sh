@@ -28,16 +28,10 @@ if [[ "$DB_PORT_5432_TCP_ADDR" ]]
 then
     DB_TYPE=${DB_TYPE:-pgsql}
     DB_HOST=$DB_PORT_5432_TCP_ADDR
-    DB_NAME=${DB_NAME:-owncloud}
-    DB_USER=${DB_USER:-owncloud}
-    DB_PASS=${DB_PASS:-owncloud}
 elif [[ "DB_PORT_3306_TCP_ADDR" ]]
 then
     DB_TYPE=${DB_TYPE:-mysql}
     DB_HOST=$DB_PORT_3306_TCP_ADDR
-    DB_NAME=${DB_NAME:-owncloud}
-    DB_USER=${DB_USER:-owncloud}
-    DB_PASS=${DB_PASS:-owncloud}
 fi
 
 # echo "The $DB_TYPE database is listening on ${DB_HOST}:${DB_PORT}"
@@ -46,7 +40,7 @@ update_config_line() {
     if grep "$option" "$config" >/dev/null 2>&1
     then
         # Update existing option
-        sed -i "s|\(\"$option\"\s\+=>\).*|\1 \"$value\"|" "$config"
+        sed -i "s|\([\"']$option[\"']\s\+=>\).*|\1 '$value',|" "$config"
     else
         # Create autoconfig.php if necessary
         [[ -f "$config" ]] || {
