@@ -2,8 +2,6 @@ FROM debian:8.0
 
 MAINTAINER Philipp Schmitt <philipp@schmitt.co>
 
-ENV OWNCLOUD_VERSION=8.0.0.7
-
 # Dependencies
 # TODO: Add NFS support
 RUN export DEBIAN_FRONTEND=noninteractive; \
