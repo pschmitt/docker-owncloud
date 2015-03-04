@@ -32,8 +32,9 @@ This container **MUST** be named `db` for this to work.
 
 ## Volumes
 
-- `/var/www/owncloud/data`: ownCloud's data directory
+- `/var/www/owncloud/apps`: ownCloud's plugin/apps directory
 - `/var/www/owncloud/config`: ownCloud's config directory
+- `/var/www/owncloud/data`: ownCloud's data directory
 - `/etc/ssl/certs/owncloud.crt`: SSL certificate. Required if `HTTPS_ENABLED` is
   `true`.
 - `/etc/ssl/private/owncloud.key`: SSL private key. Required if `HTTPS_ENABLED`
