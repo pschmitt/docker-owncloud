@@ -66,8 +66,9 @@ ExecStart=/usr/bin/docker run --name=owncloud -h owncloud.example.com \
   -e 'ADMIN_USER=admin' \
   -e 'ADMIN_PASS=admin' \
   -e 'HTTPS_ENABLED=true' \
-  -v /srv/docker/owncloud/data:/var/www/owncloud/data \
+  -v /srv/docker/owncloud/apps:/var/www/owncloud/apps \
   -v /srv/docker/owncloud/config:/var/www/owncloud/config \
+  -v /srv/docker/owncloud/data:/var/www/owncloud/data \
   -v /srv/docker/owncloud/owncloud.crt:/etc/ssl/certs/owncloud.crt \
   -v /srv/docker/owncloud/owncloud.key:/etc/ssl/certs/owncloud.key \
   pschmitt/owncloud
