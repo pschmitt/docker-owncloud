@@ -15,7 +15,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Config files
-ADD https://download.owncloud.org/community/owncloud-8.0.0.tar.bz2 /tmp/owncloud.tar.bz2
+ADD https://download.owncloud.org/community/owncloud-8.0.1.tar.bz2 /tmp/owncloud.tar.bz2
 ADD nginx_nossl.conf /etc/nginx/nginx_nossl.conf
 ADD nginx_ssl.conf /etc/nginx/nginx_ssl.conf
 ADD php.ini /etc/php5/fpm/php.ini
@@ -34,6 +34,7 @@ EXPOSE 80 443
 
 VOLUME ["/var/www/owncloud/config"]
 VOLUME ["/var/www/owncloud/data"]
+VOLUME ["/var/www/owncloud/apps"]
 VOLUME ["/etc/ssl/certs/owncloud.crt"]
 VOLUME ["/etc/ssl/private/owncloud.key"]
 VOLUME ["/var/log/nginx"]
