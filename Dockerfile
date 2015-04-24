@@ -17,6 +17,7 @@ ADD https://download.owncloud.org/community/owncloud-8.0.2.tar.bz2 /tmp/owncloud
 ADD nginx_nossl.conf /etc/nginx/nginx_nossl.conf
 ADD nginx_ssl.conf /etc/nginx/nginx_ssl.conf
 ADD php.ini /etc/php5/fpm/php.ini
+ADD php-cli.ini /etc/php5/cli/php.ini
 ADD cron.conf /etc/owncloud-cron.conf
 ADD supervisor-owncloud.conf /etc/supervisor/conf.d/supervisor-owncloud.conf
 ADD run.sh /usr/bin/run.sh
@@ -26,7 +27,7 @@ RUN mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
     tar -C /var/www/ -xvf /tmp/owncloud.tar.bz2 && \
     chmod +x /usr/bin/run.sh && \
     rm /tmp/owncloud.tar.bz2 && \
-    crontab /etc/owncloud-cron.conf
+    su -s /bin/sh www-data -c "crontab /etc/owncloud-cron.conf"
 
 EXPOSE 80 443
 
