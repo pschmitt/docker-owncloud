@@ -59,7 +59,6 @@ ExecStartPre=/usr/bin/docker pull sameersbn/owncloud
 ExecStart=/usr/bin/docker run --name=owncloud -h owncloud.example.com \
   -p 80:80 -p 443:443 \
   --link postgres:db \
-  -e 'DB_TYPE=pgsql' \
   -e 'DB_NAME=owncloud' \
   -e 'DB_USER=owncloud' \
   -e 'DB_PASS=PassWord' \
