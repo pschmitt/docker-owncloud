@@ -13,7 +13,9 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Config files
-ADD https://download.owncloud.org/community/owncloud-8.0.2.tar.bz2 /tmp/owncloud.tar.bz2
+ENV OWNCLOUD_VERSION 8.0.3
+ADD https://github.com/owncloud/core/archive/v${OWNCLOUD_VERSION}.tar.gz /tmp/owncloud.tar.gz
+ADD https://github.com/owncloud/3rdparty/archive/v${OWNCLOUD_VERSION}.tar.gz /tmp/3rdparty.tar.gz
 ADD nginx_nossl.conf /etc/nginx/nginx_nossl.conf
 ADD nginx_ssl.conf /etc/nginx/nginx_ssl.conf
 ADD php.ini /etc/php5/fpm/php.ini
@@ -23,10 +25,13 @@ ADD supervisor-owncloud.conf /etc/supervisor/conf.d/supervisor-owncloud.conf
 ADD run.sh /usr/bin/run.sh
 
 # Install owncloud
-RUN mkdir -p /var/www/owncloud /owncloud /var/log/cron && \
-    tar -C /var/www/ -xvf /tmp/owncloud.tar.bz2 && \
+RUN tar -C /var/www/ -xvf /tmp/owncloud.tar.gz && \
+    tar -C /var/www/ -xvf /tmp/3rdparty.tar.gz && \
+    mv /var/www/core-${OWNCLOUD_VERSION} /var/www/owncloud && \
+    rmdir /var/www/owncloud/3rdparty && \
+    mv /var/www/3rdparty-${OWNCLOUD_VERSION} /var/www/owncloud/3rdparty && \
     chmod +x /usr/bin/run.sh && \
-    rm /tmp/owncloud.tar.bz2 && \
+    rm /tmp/owncloud.tar.gz /tmp/3rdparty.tar.gz && \
     su -s /bin/sh www-data -c "crontab /etc/owncloud-cron.conf"
 
 EXPOSE 80 443
