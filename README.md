@@ -24,6 +24,7 @@ Then go to http://localhost/ and log in as `admin`, password: `changeme`.
 - `ADMIN_PASS`: Password of the admin account. Default: `changeme`
 - `DATA_DIR`: ownCloud data dir. Default: `/var/www/owncloud/data`
 - `HTTPS_ENABLED`: Whether to enable HTTPS (`true` or `false`). Default: `false`
+- `TIMEZONE`: Timezone. Default: `UTC`
 
 ## Database setup
 
@@ -36,10 +37,9 @@ This container **MUST** be named `db` for this to work.
 - `/var/www/owncloud/config`: ownCloud's config directory
 - `/var/www/owncloud/data`: ownCloud's data directory
 - `/etc/ssl/certs/owncloud.crt`: SSL certificate. Required if `HTTPS_ENABLED` is
-  `true`.
+`true`.
 - `/etc/ssl/private/owncloud.key`: SSL private key. Required if `HTTPS_ENABLED`
 is `true`.
-
 - `/var/log/nginx`: Nginx logs
 
 ## Systemd service file
@@ -64,6 +64,7 @@ ExecStart=/usr/bin/docker run --name=owncloud -h owncloud.example.com \
   -e 'DB_PASS=PassWord' \
   -e 'ADMIN_USER=admin' \
   -e 'ADMIN_PASS=admin' \
+  -e 'TIMEZONE=Europe/Berlin' \
   -e 'HTTPS_ENABLED=true' \
   -v /srv/docker/owncloud/apps:/var/www/owncloud/apps \
   -v /srv/docker/owncloud/config:/var/www/owncloud/config \

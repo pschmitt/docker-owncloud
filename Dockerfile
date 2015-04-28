@@ -12,10 +12,15 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Config files
 ENV OWNCLOUD_VERSION 8.0.3
-ADD https://github.com/owncloud/core/archive/v${OWNCLOUD_VERSION}.tar.gz /tmp/owncloud.tar.gz
-ADD https://github.com/owncloud/3rdparty/archive/v${OWNCLOUD_VERSION}.tar.gz /tmp/3rdparty.tar.gz
+ENV TIMEZONE UTC
+
+# ownCloud dist
+ADD https://github.com/owncloud/core/archive/v${OWNCLOUD_VERSION}.tar.gz \
+    /tmp/owncloud.tar.gz
+ADD https://github.com/owncloud/3rdparty/archive/v${OWNCLOUD_VERSION}.tar.gz \
+    /tmp/3rdparty.tar.gz
+# Config files
 ADD nginx_nossl.conf /etc/nginx/nginx_nossl.conf
 ADD nginx_ssl.conf /etc/nginx/nginx_ssl.conf
 ADD php.ini /etc/php5/fpm/php.ini
@@ -37,12 +42,9 @@ RUN tar -C /var/www/ -xvf /tmp/owncloud.tar.gz && \
 
 EXPOSE 80 443
 
-VOLUME ["/var/www/owncloud/config"]
-VOLUME ["/var/www/owncloud/data"]
-VOLUME ["/var/www/owncloud/apps"]
-VOLUME ["/etc/ssl/certs/owncloud.crt"]
-VOLUME ["/etc/ssl/private/owncloud.key"]
-VOLUME ["/var/log/nginx"]
+VOLUME ["/var/www/owncloud/config", "/var/www/owncloud/data", \
+        "/var/www/owncloud/apps", "/var/log/nginx", \
+        "/etc/ssl/certs/owncloud.crt", "/etc/ssl/private/owncloud.key"]
 
 WORKDIR /var/www/owncloud
 # USER www-data

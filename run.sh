@@ -103,10 +103,10 @@ update_nginx_config() {
     # mv /etc/nginx/nginx.conf /etc/nginx.orig
     rm /etc/nginx/nginx.conf
     [[ "$HTTPS_ENABLED" == "true" ]] && {
-        echo "SSL is enabled"
+        echo -n "SSL is enabled "
         ln -s /etc/nginx/nginx_ssl.conf /etc/nginx/nginx.conf
     } || {
-        echo "SSL is disabled!"
+        echo -n "SSL is disabled! "
         ln -s /etc/nginx/nginx_nossl.conf /etc/nginx/nginx.conf
     }
     echo "Done !"
@@ -135,5 +135,15 @@ chown -R www-data:www-data /var/www/owncloud
 # nginx setup
 # mkdir -p /var/log/nginx
 # chown www-data:www-data /var/log/nginx
+
+update_timezone() {
+    echo -n "Setting timezone to $1... "
+    ln -sf "/usr/share/zoneinfo/$1" /etc/localtime
+    [[ $? -eq 0 ]] && echo "Done !" || echo "FAILURE"
+}
+if [[ -n "$TIMEZONE" ]]
+then
+    update_timezone "$TIMEZONE"
+fi
 
 supervisord -n -c /etc/supervisor/supervisord.conf
