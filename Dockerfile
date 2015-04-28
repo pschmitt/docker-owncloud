@@ -23,6 +23,7 @@ ADD php-cli.ini /etc/php5/cli/php.ini
 ADD cron.conf /etc/owncloud-cron.conf
 ADD supervisor-owncloud.conf /etc/supervisor/conf.d/supervisor-owncloud.conf
 ADD run.sh /usr/bin/run.sh
+ADD occ.sh /usr/bin/occ
 
 # Install owncloud
 RUN tar -C /var/www/ -xvf /tmp/owncloud.tar.gz && \

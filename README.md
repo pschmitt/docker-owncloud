@@ -77,3 +77,11 @@ ExecStart=/usr/bin/docker run --name=owncloud -h owncloud.example.com \
 Alias=owncloud.service
 WantedBy=multi-user.target
 ```
+
+## Run occ commands
+
+Provided `owncloud` is the name of your container:
+
+```bash
+docker exec -it owncloud occ help
+```
