@@ -55,7 +55,7 @@ TimeoutStartSec=0
 Restart=always
 ExecStartPre=-/usr/bin/docker kill owncloud
 ExecStartPre=-/usr/bin/docker rm owncloud
-ExecStartPre=/usr/bin/docker pull sameersbn/owncloud
+ExecStartPre=/usr/bin/docker pull pschmitt/owncloud
 ExecStart=/usr/bin/docker run --name=owncloud -h owncloud.example.com \
   -p 80:80 -p 443:443 \
   --link postgres:db \
