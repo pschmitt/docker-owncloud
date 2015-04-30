@@ -28,7 +28,7 @@ if [[ "$DB_PORT_5432_TCP_ADDR" ]]
 then
     DB_TYPE=pgsql
     DB_HOST=$DB_PORT_5432_TCP_ADDR
-elif [[ "DB_PORT_3306_TCP_ADDR" ]]
+elif [[ "$DB_PORT_3306_TCP_ADDR" ]]
 then
     DB_TYPE=mysql
     DB_HOST=$DB_PORT_3306_TCP_ADDR
