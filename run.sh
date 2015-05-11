@@ -146,4 +146,4 @@ then
     update_timezone "$TIMEZONE"
 fi
 
-supervisord -n -c /etc/supervisor/supervisord.conf
+exec supervisord -n -c /etc/supervisor/supervisord.conf
