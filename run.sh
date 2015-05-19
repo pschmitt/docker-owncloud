@@ -40,7 +40,7 @@ update_config_line() {
     local -r config="$1" option="$2" value="$3"
 
     # Skip if value is empty.
-    if [ -z "$value" ]; then
+    if [[ -z "$value" ]]; then
         return
     fi
 
