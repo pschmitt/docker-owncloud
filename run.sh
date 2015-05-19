@@ -35,8 +35,16 @@ then
 fi
 
 # echo "The $DB_TYPE database is listening on ${DB_HOST}:${DB_PORT}"
+
 update_config_line() {
     local -r config="$1" option="$2" value="$3"
+
+    # Skip if value is empty.
+    if [ -z "$value" ]; then
+        return
+    fi
+
+    # Check if the option is set.
     if grep "$option" "$config" >/dev/null 2>&1
     then
         # Update existing option
@@ -46,14 +54,12 @@ update_config_line() {
         [[ -f "$config" ]] || {
             echo -e '<?php\n$AUTOCONFIG = array (' > "$config"
         }
-        # Append to config
-        echo "  \"$option\" => \"$value\"," >> "$config"
+
+        # Add to config
+        sed -i "s|\(CONFIG\s=\sarray\s(\).*|\1\n  '$option' => '$value',|" "$config"
     fi
 }
 
-# TODO: Try to ignore unset variables, according to [1] those should be prompted
-# when first launching the web UI
-# 1: https://doc.owncloud.org/server/8.0/admin_manual/configuration_server/automatic_configuration.html?highlight=automatic%20configuration
 owncloud_autoconfig() {
     echo -n "Creating autoconfig.php... "
     local -r config=/var/www/owncloud/config/autoconfig.php
