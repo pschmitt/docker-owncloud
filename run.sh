@@ -56,7 +56,7 @@ update_config_line() {
         }
 
         # Add to config
-        sed -i "s|\(CONFIG\s=\sarray\s(\).*|\1\n  '$option' => '$value',|" "$config"
+        sed -i "s|\(CONFIG\s*=\s*array\s*(\).*|\1\n  '$option' => '$value',|" "$config"
     fi
 }
 
