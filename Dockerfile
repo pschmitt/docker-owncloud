@@ -12,25 +12,26 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV OWNCLOUD_VERSION 8.0.3
+ENV OWNCLOUD_VERSION 8.0.4
 ENV TIMEZONE UTC
 
-# ownCloud dist
+# Fetch ownCloud dist files
 ADD https://github.com/owncloud/core/archive/v${OWNCLOUD_VERSION}.tar.gz \
     /tmp/owncloud.tar.gz
 ADD https://github.com/owncloud/3rdparty/archive/v${OWNCLOUD_VERSION}.tar.gz \
     /tmp/3rdparty.tar.gz
-# Config files
-ADD nginx_nossl.conf /etc/nginx/nginx_nossl.conf
-ADD nginx_ssl.conf /etc/nginx/nginx_ssl.conf
-ADD php.ini /etc/php5/fpm/php.ini
-ADD php-cli.ini /etc/php5/cli/php.ini
-ADD cron.conf /etc/owncloud-cron.conf
-ADD supervisor-owncloud.conf /etc/supervisor/conf.d/supervisor-owncloud.conf
-ADD run.sh /usr/bin/run.sh
-ADD occ.sh /usr/bin/occ
 
-# Install owncloud
+# Config files and scripts
+COPY nginx_nossl.conf /etc/nginx/nginx_nossl.conf
+COPY nginx_ssl.conf /etc/nginx/nginx_ssl.conf
+COPY php.ini /etc/php5/fpm/php.ini
+COPY php-cli.ini /etc/php5/cli/php.ini
+COPY cron.conf /etc/owncloud-cron.conf
+COPY supervisor-owncloud.conf /etc/supervisor/conf.d/supervisor-owncloud.conf
+COPY run.sh /usr/bin/run.sh
+COPY occ.sh /usr/bin/occ
+
+# Install ownCloud
 RUN tar -C /var/www/ -xvf /tmp/owncloud.tar.gz && \
     tar -C /var/www/ -xvf /tmp/3rdparty.tar.gz && \
     mv /var/www/core-${OWNCLOUD_VERSION} /var/www/owncloud && \
