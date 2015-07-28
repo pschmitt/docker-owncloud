@@ -12,7 +12,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ENV OWNCLOUD_VERSION 8.0.4
+ENV OWNCLOUD_VERSION 8.1.0
 ENV TIMEZONE UTC
 
 # Fetch ownCloud dist files
