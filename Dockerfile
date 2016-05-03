@@ -50,3 +50,5 @@ VOLUME ["/var/www/owncloud/config", "/var/www/owncloud/data", \
 WORKDIR /var/www/owncloud
 # USER www-data
 CMD ["/usr/bin/run.sh"]
+
+ADD php-fpm/www.conf /etc/php5/fpm/pool.d/www.conf
